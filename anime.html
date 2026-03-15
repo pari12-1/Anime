@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANIMEverse Bookstore – Your Manga & Anime Haven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0d001a;
+      color: #f0e6ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(180,0,255,0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(0,255,200,0.06) 0%, transparent 45%);
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 2, 30, 0.75);
+      border-bottom: 1px solid rgba(100, 0, 255, 0.18);
+      padding: 1rem 5%;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #00f0ff, #c300ff, #ff00aa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(180,0,255,0.6);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #d0c0ff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #00f0ff;
+      text-shadow: 0 0 12px #00f0ff;
+    }
+
+    .nav-icons a {
+      color: #a080ff;
+      font-size: 1.4rem;
+      margin-left: 1rem;
+      transition: all 0.3s;
+    }
+
+    .nav-icons a:hover {
+      color: #00ffff;
+      transform: scale(1.15);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 0 5%;
+      background: url('https://images8.alphacoders.com/106/thumb-1920-1068123.jpg') center/cover no-repeat fixed;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,2,30,0.65), rgba(20,5,50,0.85));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+    }
+
+    .welcome { font-size: 1.5rem; letter-spacing: 6px; color: #a0f0ff; text-shadow: 0 0 15px #00d4ff; margin-bottom: 1rem; }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 900;
+      background: linear-gradient(90deg, #00f0ff, #ff00cc, #c300ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 40px rgba(180,0,255,0.7);
+    }
+    .japanese { font-size: 5rem; color: #ff00cc; text-shadow: 0 0 25px #ff00cc; margin: 1rem 0; letter-spacing: 8px; }
+    .tagline { font-size: 1.35rem; max-width: 780px; margin: 0 auto 2.5rem; color: #d0c0ff; }
+    .cta {
+      padding: 1.1rem 3.2rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      background: linear-gradient(45deg, #00f0ff, #ff00cc);
+      color: #0a021e;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 0 30px rgba(0,240,255,0.6);
+      transition: all 0.4s;
+    }
+    .cta:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 0 60px rgba(0,240,255,0.9); }
+
+    .character {
+      position: absolute;
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 0 40px rgba(0,240,255,0.7));
+      animation: float 14s ease-in-out infinite;
+    }
+    .naruto  { bottom: 8%; left: 10%; width: 20%; animation-delay: 0s; }
+    .luffy   { bottom: 5%; left: 38%; width: 26%; animation-delay: 3s; }
+    .gojo    { bottom: 6%; right: 10%; width: 22%; animation-delay: 6s; }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-60px) rotate(4deg); } }
+
+    /* Sections */
+    section {
+      padding: 6rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      text-align: center;
+      background: linear-gradient(90deg, #00ffff, #ff00cc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 3rem;
+      text-shadow: 0 0 30px rgba(0,255,255,0.5);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: rgba(30, 10, 60, 0.5);
+      border: 1px solid rgba(0,240,255,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s;
+      backdrop-filter: blur(6px);
+    }
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(0,240,255,0.3);
+      border-color: #00f0ff;
+    }
+    .card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+    }
+    .card-info {
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+      color: #00f0ff;
+    }
+    .price {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ff00cc;
+      margin: 0.5rem 0;
+    }
+    .btn-buy {
+      display: inline-block;
+      padding: 0.7rem 1.5rem;
+      background: #00f0ff;
+      color: #0a021e;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 0.8rem;
+      transition: all 0.3s;
+    }
+    .btn-buy:hover { background: #ff00cc; color: white; }
+
+    /* Testimonials */
+    .testimonials .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .testimonial {
+      padding: 2rem;
+      text-align: center;
+      font-style: italic;
+      color: #d0c0ff;
+    }
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid #00f0ff;
+      margin-bottom: 1rem;
+      object-fit: cover;
+    }
+    .author { font-weight: 600; color: #00ffff; margin-top: 1rem; }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to top, #0a021e, #150430);
+      padding: 4rem 5% 2rem;
+      border-top: 1px solid rgba(0,240,255,0.15);
+    }
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto 3rem;
+      gap: 2rem;
+    }
+    .footer-col h4 {
+      font-family: 'Orbitron', sans-serif;
+      color: #00f0ff;
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col a {
+      color: #d0c0ff;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.8rem;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: #00ffff; }
+    .newsletter {
+      flex: 1;
+      min-width: 300px;
+    }
+    .newsletter input {
+      padding: 1rem;
+      border: 1px solid #00f0ff;
+      background: rgba(255,255,255,0.05);
+      color: white;
+      border-radius: 8px 0 0 8px;
+      width: 70%;
+    }
+    .newsletter button {
+      padding: 1rem 1.5rem;
+      background: #ff00cc;
+      color: white;
+      border: none;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .newsletter button:hover { background: #00f0ff; color: #0a021e; }
+    .social {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 1.8rem;
+    }
+    .social a { color: #a080ff; transition: all 0.3s; }
+    .social a:hover { color: #00ffff; transform: translateY(-4px); }
+    .copyright {
+      text-align: center;
+      color: #8070aa;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(100,100,255,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .hero { min-height: 80vh; }
+      h1 { font-size: 4.5rem; }
+      .nav-links { gap: 1rem; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">ANIMEverse</div>
+      <div class="nav-links">
+        <a href="#">HOME</a>
+        <a href="#">MANGA</a>
+        <a href="#">NEW RELEASES</a>
+        <a href="#">FIGURES</a>
+        <div class="nav-icons">
+          <a href="#">🔍</a>
+          <a href="#">👤</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="welcome">WELCOME TO</div>
+      <h1>ANIMEVERSE BOOKSTORE</h1>
+      <div class="japanese">漫画</div>
+      <p class="tagline">Escape into every adventure. Your portal to Manga, Anime & More!</p>
+      <a href="#" class="cta">EXPLORE COLLECTION NOW!</a>
+    </div>
+
+    <!-- Replace with real transparent PNGs -->
+    <img src="D:\naruto.jpg-removebg-preview.png" class="character naruto" alt="Naruto">
+    <img src="D:\luffy.png" class="character luffy" alt="Luffy">
+    <img src="D:\gojo.png" class="character gojo" alt="Gojo">
+  </section>
+
+  <section id="latest">
+    <h2>Latest Manga Releases</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="https://static0.cbrimages.com/wordpress/wp-content/uploads/2025/08/new-gen-manga-collage-featuring-spy-x-family-dandadan-and-chainsaw-man.jpg?w=1200&h=628&fit=crop" alt="New Gen Manga">
+        <div class="card-info">
+          <h3>Dandadan Vol. Latest</h3>
+          <div class="price">₹550</div>
+          <a href="#" class="btn-buy">Add to Cart</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://gizmodo.com/app/uploads/2026/03/Kagurabachi-Manga-Shonen-Jump-io9-template-3-1280x853.jpg" alt="Kagurabachi">
+        <div class="card-info">
+          <h3>Kagurabachi Vol. 5+</h3>
+          <div class="price">₹520</div>
+          <a href="#" class="btn-buy">Add to Cart</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://gizmodo.com/app/uploads/2025/02/Gokurakugai-Viz-Media-Manga-1200x675.jpg" alt="Gokurakugai">
+        <div class="card-info">
+          <h3>Gokurakugai Latest</h3>
+          <div class="price">₹580</div>
+          <a href="#" class="btn-buy">Add to Cart</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://cdn.mos.cms.futurecdn.net/ymjZTb32hs8kkdZwJC2VuE.jpg" alt="Top Manga 2024">
+        <div class="card-info">
+          <h3>Solo Leveling New Arc</h3>
+          <div class="price">₹650</div>
+          <a href="#" class="btn-buy">Add to Cart</a>
+        </div>
+      </div>
+      <!-- Add 4-8 more as needed -->
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <h2>What Our Readers Say</h2>
+    <div class="grid">
+      <div class="card testimonial">
+        <img src="https://createvision.ai/_next/image?url=https%3A%2F%2Fcdn.createvision.ai%2Fstatic%2Fguides%2Fai-anime-avatar-complete-guide%2Fai-anime-avatar-comparison.png&w=1920&q=75" class="avatar" alt="Reader">
+        <p>"Fast delivery and perfect condition! Loving the new volumes."</p>
+        <div class="author">- Priya, Surat</div>
+      </div>
+      <div class="card testimonial">
+        <img src="https://example.com/anime-avatar-2.jpg" class="avatar" alt="Reader">
+        <p>"Best place for rare manga in Gujarat. Highly recommend!"</p>
+        <div class="author">- Rahul, Anime Fan</div>
+      </div>
+      <div class="card testimonial">
+        <img src="https://example.com/anime-avatar-3.jpg" class="avatar" alt="Reader">
+        <p>"Neon vibe of the site matches my room setup perfectly haha."</p>
+        <div class="author">- Sneha</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Manga</a></li>
+          <li><a href="#">New Releases</a></li>
+          <li><a href="#">Figures & Merch</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Track Order</a></li>
+        </ul>
+      </div>
+      <div class="newsletter">
+        <h4>Stay Updated</h4>
+        <p>Subscribe for new releases & exclusive deals!</p>
+        <form>
+          <input type="email" placeholder="Your email...">
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin:2rem 0;">
+      <div class="social">
+        <a href="#">YouTube</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Discord</a>
+      </div>
+    </div>
+
+    <div class="copyright">
+      © 2026 ANIMEverse Bookstore. All rights reserved. Made with ❤️ in Surat, Gujarat.
+    </div>
+  </footer>
+
+</body>
+</html>
